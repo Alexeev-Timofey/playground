@@ -1,0 +1,6 @@
+[package]
+name = "pseudo_stress_cpu_load"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
