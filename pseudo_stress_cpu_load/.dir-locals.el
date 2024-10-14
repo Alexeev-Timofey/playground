@@ -1,6 +1,6 @@
 ((rust-mode
-  . (eval
+  . ((eval
      . (progn
 	 (eglot-ensure)
 	 (company-mode)
-	 (flycheck-mode)))))
+	 (flycheck-mode))))))
