@@ -1,3 +1,4 @@
+; TODO Need function for flycheck setup
 ((rust-mode
   . ((eval
       . (add-hook
