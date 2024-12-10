@@ -1,0 +1,17 @@
+load("//NaN/bazel:deploy.bzl", "deploy")
+
+check_dependencies(
+    name="dev_dependencies"
+) # TODO
+
+check_dependencies(
+    name="build_dependencies"
+) # TODO
+
+deploy(
+    name="default_deploy"
+) # TODO
+
+# run() # TODO
+
+# test() # TODO
