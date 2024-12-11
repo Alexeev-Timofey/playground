@@ -1,5 +1,5 @@
-def _create_libvirt_storage():
-    pass # TODO
+def _create_libvirt_storage(ctx):
+    return actions.run()
 
 def _create_libvirt_image(ctx):
     pass # TODO
