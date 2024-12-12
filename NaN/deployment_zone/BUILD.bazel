@@ -1,0 +1,11 @@
+load("//NaN/deployment_zone/bazel:libvirt.bzl")
+
+libvitr_pool_path_settings(
+    name = "libvirt_pool_path",
+    path = "libvirt_pool/",
+)
+
+create_libvirt_pool(
+    name = "libvirt_pool",
+    pool_path = ":libvirt_pool_path",
+)
