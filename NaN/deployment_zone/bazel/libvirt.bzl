@@ -9,7 +9,7 @@ libvitr_pool_path_settings = rule(
 )
 
 def _create_libvirt_poll_impl(ctx):
-    return actions.run(
+    return ctx.actions.run(
         outputs = ctx.outputs.pool_dir,
 	executable = "virsh",
 	argumants = ["pool-create-as", "NaN", "dir", "--target", ctx.outputs.pool_dir], # FIXME Is .pool_dir need .to_string ?
@@ -19,9 +19,9 @@ def _create_libvirt_poll_impl(ctx):
 
 create_libvirt_pool = rule(
     implementation = _create_libvirt_poll_impl,
-    attrs = {"pool_path" = attr.output(
+    attrs = {"pool_path": attr.output(
         doc = "Directory for libvirt dir type pool",
         mandatory = True,
-    )}
+    )},
     doc = "Rule for initiating libvirt storage pool",
 )
