@@ -5,5 +5,5 @@ My monorepo with self-education projects.
 ## Notes And News
 Собственный сайт типа блога.
 ### Надо попробовать другие системы сборки
+#### ☛ Waf
 #### SCons
-#### Waf
