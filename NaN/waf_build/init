@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+echo Этот файл должен будет настраивать систему сборки для проекта
+echo Проверить и поставить зависимости
+echo Сделать симлинки для файлов системы сборки
+
+FORCE=[[ -o -f --force ]]
+
+function check_waf
+function check_symlink {}
+function set_symlink {}
+function set_all_symlinks {}
+
+function delete_wscripts
+function delete_waf {}
+function clean {}
