@@ -32,3 +32,10 @@ Notes-And-News
 Надо поиграться, как будет с чем эксперемкентироовать.
 *** Тестирование
 Seleniium?
+* Система сборки
+** Features
+*** dev environment support
+**** emacs
+*** build environment suupport
+*** TODO run environment support
+**** TODO test environment
