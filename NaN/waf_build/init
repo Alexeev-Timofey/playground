@@ -1,16 +1,65 @@
 #!/usr/bin/env bash
 
+WAF_GIT_DIR='waf_git'
+
+FORCE=0
+CLEAN=0
+
+for PARAM in $@; do
+    case $PARAM in
+	-f|--force)
+	    FORCE=1
+	    ;;
+	-c|--clean)
+	    CLEAN=1
+	    ;;
+	-h|--help)
+	    echo Help message
+	    exit
+	    ;;
+    esac
+done
+
 echo Этот файл должен будет настраивать систему сборки для проекта
 echo Проверить и поставить зависимости
 echo Сделать симлинки для файлов системы сборки
 
-FORCE=[[ -o -f --force ]]
+function check_waf {
+    pushd $WAF_GIT_DIR
+    git status
+    RET=$?  # FIXME Наверняка можно сделать изящней
+    popd
+    echo $RET
+}
 
-function check_waf
-function check_symlink {}
-function set_symlink {}
-function set_all_symlinks {}
+function check_symlink {
+    return [[ -h $1 ]]  # TODO
+}
 
-function delete_wscripts
-function delete_waf {}
-function clean {}
+function set_symlink {
+    ln -s $1 $2  # TODO
+}
+
+function set_all_symlinks {
+}
+
+function delete_wscripts {
+}
+
+function delete_waf {
+    rm -rf $WAF_GIT_DIR
+}
+
+function clean {
+}
+
+echo Если --force и --clean, то удалить waf и все симлинки
+echo Если --clean то удалить симлинки
+echo Если --force то пересоздать симлинки
+echo Если без опций, то проверить наличие waf, если надо скачать и установить. Проверить симлинки, установить недостающие.
+
+WAF_INSTALLLED=$(check_waf)
+
+if $FORCE && $CLEAN; then
+    
+fi
