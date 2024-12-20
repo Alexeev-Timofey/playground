@@ -2,13 +2,17 @@
 
 echo Hello!
 
-# TODO Check python, coreutils and bash (maybe)
+# TODO Check git, find, python, coreutils and bash
 
 # FIXME check path arithmetic
-PROJECT_ROOT=$(realpath "$(dirname ${BASH_SOURCE[0]})/..")
+PROJECT_ROOT=$(realpath $(dirname ${BASH_SOURCE[0]})/..)
 WAF_GIT_DIR=$PROJECT_ROOT/waf_build/waf_git
-WAF_GIT_URL=TODO
+# WAF_GIT_URL='https://gitlab.com/ita1024/waf.git'
+WAF_GIT_URL=/home/alekseevt/Playground/waf # DEBUG
 WAF_GIT_BRANCH=master
+WAF_TOOLS_DIR=$PROJECT_ROOT/waf_build/waf_tools
+WAF_EXTRAS_DIR=$PROJECT_ROOT/waf_build/waf_extras
+WSCRIPTS_DIR=$PROJECT_ROOT/waf_build/wscripts
 
 FORCE=0
 CLEAN=0
@@ -28,54 +32,45 @@ for PARAM in $@; do
     esac
 done
 
-SYMLINK_PLIST=TODO
-
-echo Этот файл должен будет настраивать систему сборки для проекта
-echo Проверить и поставить зависимости
-echo Сделать симлинки для файлов системы сборки
-
-# function check_symlink {
-#     return [[ -h $1 ]]  # TODO
-# }
-
-# function set_symlink {
-#     ln -s $1 $2  # TODO
-# }
-
-# function set_all_symlinks {
-# }
-
-# function delete_wscripts {
-# }
-
-# function clean {
-# }
-
-echo Если --force и --clean, то удалить waf и все симлинки
-echo Если --clean то удалить симлинки
-echo Если --force то пересоздать симлинки
-echo Если без опций, то проверить наличие waf, если надо скачать и установить. Проверить симлинки, установить недостающие.
+WSCRIPTS_LIST=
 
 if [[ $FORCE && $CLEAN ]]; then
     echo Clean WAF
-    # rm -rf "$WAF_GIT_DIR/*"
+    rm -rf $WAF_GIT_DIR/*
 fi
 
 if [[ $CLEAN || $FORCE ]]; then
     echo Clean symlinks
+    find $PROJECT_ROOT -type l -name wscript -delete
+fi
+
+if [[ ! $CLEAN ]]; then
+    WSCRIPTS_LIST=$(find $WSCRIPTS_DIR -name wscript)
 fi
 
 pushd $WAF_GIT_DIR
-if $(git status); then
+if [[ $(git status) ]]; then
     echo Download WAF
-    # git init
-    # git remote add -m $WAF_GIT_BRANCH -f origin $WAF_GIT_URL
-    # TODO create symlinks to custom tools
+    git init # FIXME May be use `git clone` ?
+    git remote add -m $WAF_GIT_BRANCH -f origin $WAF_GIT_URL
+    pushd waflib/tools
+    for TGT in $(ls $WAF_TOOLS_DIR); do
+	ln -s $TGT # FIXME This must be releative path
+    done
+    popd
+    pushd waflib/extras
+    for TGT in $(ls $WAF_EXTRAS_DIR); do
+	ln -s $TGT # FIXME This must be releative path
+    done
+    popd
 fi
 popd
 
-# if $(check_symlinks); then
-#     echo Create symlinks
-# fi
+for WS in $WSCRIPTS_LIST; do # FIXME May be use `find` ?
+    if [[ ! -L ${PROJECT_ROOT}/${WS} ]]; then
+	echo Create symlink $WS
+	ln -s $WSCRIPTS_DIR/$WS ${PROJECT_ROOT}/${WS} # FIXME This must be releative path
+    fi
+done
 
 echo Done
