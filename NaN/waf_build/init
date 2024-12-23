@@ -34,42 +34,41 @@ done
 
 WSCRIPTS_LIST=
 
-if [[ $FORCE && $CLEAN ]]; then
+if (( $FORCE && $CLEAN )); then
     echo Clean WAF
-    rm -rf $WAF_GIT_DIR/*
+    rm -rf $WAF_GIT_DIR/* # FIXME Не удаляет .git папку
 fi
 
-if [[ $CLEAN || $FORCE ]]; then
+if (( $CLEAN || $FORCE )); then
     echo Clean symlinks
     find $PROJECT_ROOT -type l -name wscript -delete
 fi
 
-if [[ ! $CLEAN ]]; then
+if (( ! $CLEAN )); then
+    echo Search wscript files
     WSCRIPTS_LIST=$(find $WSCRIPTS_DIR -name wscript)
 fi
 
-pushd $WAF_GIT_DIR
-if [[ $(git status) ]]; then
-    echo Download WAF
-    git init # FIXME May be use `git clone` ?
-    git remote add -m $WAF_GIT_BRANCH -f origin $WAF_GIT_URL
-    pushd waflib/tools
+if [[ ! -d $WAF_GIT_DIR/.git ]]; then
+    git clone $WAF_GIT_URL $WAF_GIT_DIR
+    pushd $WAF_GIT_DIR/waflib/tools
     for TGT in $(ls $WAF_TOOLS_DIR); do
-	ln -s $TGT # FIXME This must be releative path
+	ln -s $(realpath --relative-to=$(pwd) $TGT)
     done
     popd
-    pushd waflib/extras
+    pushd $WAF_GIT_DIR/waflib/extras
     for TGT in $(ls $WAF_EXTRAS_DIR); do
-	ln -s $TGT # FIXME This must be releative path
+        ln -s $(realpath --relative-to=$(pwd) $TGT)
     done
     popd
 fi
-popd
 
 for WS in $WSCRIPTS_LIST; do # FIXME May be use `find` ?
     if [[ ! -L ${PROJECT_ROOT}/${WS} ]]; then
 	echo Create symlink $WS
-	ln -s $WSCRIPTS_DIR/$WS ${PROJECT_ROOT}/${WS} # FIXME This must be releative path
+	pushd $(dirname ${PROJECT_ROOT}/${WS})
+	ln -s $(realpath --relative-to=$(pwd) $WSCRIPTS_DIR/$WS)
+	popd
     fi
 done
 
