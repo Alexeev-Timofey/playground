@@ -36,7 +36,9 @@ WSCRIPTS_LIST=
 
 if (( $FORCE && $CLEAN )); then
     echo Clean WAF
-    rm -rf $WAF_GIT_DIR/* # FIXME Не удаляет .git папку
+    # rm -rf $WAF_GIT_DIR/* # FIXME Не удаляет .git папку
+    rm -rf $WAF_GIT_DIR
+    mkdir $WAF_GIT_DIR
 fi
 
 if (( $CLEAN || $FORCE )); then
@@ -46,12 +48,14 @@ fi
 
 if (( ! $CLEAN )); then
     echo Search wscript files
-    WSCRIPTS_LIST=$(find $WSCRIPTS_DIR -name wscript)
+    pushd $WSCRIPTS_DIR
+    WSCRIPTS_LIST=$(find . -name wscript)
+    popd
 fi
 
 if [[ ! -d $WAF_GIT_DIR/.git ]]; then
     git clone $WAF_GIT_URL $WAF_GIT_DIR
-    pushd $WAF_GIT_DIR/waflib/tools
+    pushd $WAF_GIT_DIR/waflib/Tools
     for TGT in $(ls $WAF_TOOLS_DIR); do
 	ln -s $(realpath --relative-to=$(pwd) $TGT)
     done
