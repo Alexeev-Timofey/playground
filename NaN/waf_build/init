@@ -71,7 +71,7 @@ if [[ ! -x $PROJECT_ROOT/waf ]]; then
     echo Setup waf executable
     echo "#!/usr/bin/env bash" > $PROJECT_ROOT/waf
     echo "WAFDIR=$WAF_GIT_DIR/waflib" >> $PROJECT_ROOT/waf
-    echo "waf $@" >> $PROJECT_ROOT/waf
+    echo 'waf $@' >> $PROJECT_ROOT/waf
     chmod +x $PROJECT_ROOT/waf
 fi
 
