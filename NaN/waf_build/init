@@ -4,11 +4,9 @@ echo Hello!
 
 # TODO Check git, find, python, coreutils and bash
 
-# FIXME check path arithmetic
 PROJECT_ROOT=$(realpath $(dirname ${BASH_SOURCE[0]})/..)
 WAF_GIT_DIR=$PROJECT_ROOT/waf_build/waf_git
-# WAF_GIT_URL='https://gitlab.com/ita1024/waf.git'
-WAF_GIT_URL=/home/alekseevt/Playground/waf # DEBUG
+WAF_GIT_URL='https://gitlab.com/ita1024/waf.git'
 WAF_GIT_BRANCH=master
 WAF_TOOLS_DIR=$PROJECT_ROOT/waf_build/waf_tools
 WAF_EXTRAS_DIR=$PROJECT_ROOT/waf_build/waf_extras
@@ -36,7 +34,6 @@ WSCRIPTS_LIST=
 
 if (( $FORCE && $CLEAN )); then
     echo Clean WAF
-    # rm -rf $WAF_GIT_DIR/* # FIXME Не удаляет .git папку
     rm -rf $WAF_GIT_DIR
     mkdir $WAF_GIT_DIR
 fi
@@ -56,12 +53,12 @@ fi
 if [[ ! -d $WAF_GIT_DIR/.git ]]; then
     git clone $WAF_GIT_URL $WAF_GIT_DIR
     pushd $WAF_GIT_DIR/waflib/Tools
-    for TGT in $(ls $WAF_TOOLS_DIR); do
+    for TGT in $(find $WAF_TOOLS_DIR -name '*.py'); do
 	ln -s $(realpath --relative-to=$(pwd) $TGT)
     done
     popd
     pushd $WAF_GIT_DIR/waflib/extras
-    for TGT in $(ls $WAF_EXTRAS_DIR); do
+    for TGT in $(find $WAF_EXTRAS_DIR -name '*.py'); do
         ln -s $(realpath --relative-to=$(pwd) $TGT)
     done
     popd
