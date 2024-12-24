@@ -45,26 +45,26 @@ fi
 
 if (( ! $CLEAN )); then
     echo Search wscript files
-    pushd $WSCRIPTS_DIR
+    pushd $WSCRIPTS_DIR > /dev/null
     WSCRIPTS_LIST=$(find . -name wscript)
-    popd
+    popd > /dev/null
 fi
 
 if [[ ! -d $WAF_GIT_DIR/.git ]]; then
     echo Setup waf git directory
     git clone $WAF_GIT_URL $WAF_GIT_DIR
-    pushd $WAF_GIT_DIR/waflib/Tools
+    pushd $WAF_GIT_DIR/waflib/Tools > /dev/null
     for TGT in $(find $WAF_TOOLS_DIR -name '*.py'); do # FIXME May be use `find` ?
 	# ln -s $(realpath --relative-to=$(pwd) $TGT) # DELETEME
 	ln -sr $TGT
     done
-    popd
-    pushd $WAF_GIT_DIR/waflib/extras
+    popd > /dev/null
+    pushd $WAF_GIT_DIR/waflib/extras > /dev/null
     for TGT in $(find $WAF_EXTRAS_DIR -name '*.py'); do # FIXME May be use `find` ?
         # ln -s $(realpath --relative-to=$(pwd) $TGT) # DELETEME
 	ln -sr $TGT
     done
-    popd
+    popd > /dev/null
 fi
 
 if [[ ! -x $PROJECT_ROOT/waf ]]; then
@@ -79,10 +79,10 @@ fi
 for WS in $WSCRIPTS_LIST; do # FIXME May be use `find` ?
     if [[ ! -L ${PROJECT_ROOT}/${WS} ]]; then
 	echo Create symlink $WS
-	pushd $(dirname ${PROJECT_ROOT}/${WS})
+	pushd $(dirname ${PROJECT_ROOT}/${WS}) > /dev/null
 	# ln -s $(realpath --relative-to=$(pwd) $WSCRIPTS_DIR/$WS) # DELETEME
 	ln -sr $WSCRIPTS_DIR/$WS
-	popd
+	popd > /dev/null
     fi
 done
 
