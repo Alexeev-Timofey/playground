@@ -51,24 +51,37 @@ if (( ! $CLEAN )); then
 fi
 
 if [[ ! -d $WAF_GIT_DIR/.git ]]; then
+    echo Setup waf git directory
     git clone $WAF_GIT_URL $WAF_GIT_DIR
     pushd $WAF_GIT_DIR/waflib/Tools
-    for TGT in $(find $WAF_TOOLS_DIR -name '*.py'); do
-	ln -s $(realpath --relative-to=$(pwd) $TGT)
+    for TGT in $(find $WAF_TOOLS_DIR -name '*.py'); do # FIXME May be use `find` ?
+	# ln -s $(realpath --relative-to=$(pwd) $TGT) # DELETEME
+	ln -sr $TGT
     done
     popd
     pushd $WAF_GIT_DIR/waflib/extras
-    for TGT in $(find $WAF_EXTRAS_DIR -name '*.py'); do
-        ln -s $(realpath --relative-to=$(pwd) $TGT)
+    for TGT in $(find $WAF_EXTRAS_DIR -name '*.py'); do # FIXME May be use `find` ?
+        # ln -s $(realpath --relative-to=$(pwd) $TGT) # DELETEME
+	ln -sr $TGT
     done
     popd
 fi
+
+if [[ ! -x $PROJECT_ROOT/waf ]]; then
+    echo Setup waf executable
+    echo "#!/usr/bin/env bash" > $PROJECT_ROOT/waf
+    echo "WAFDIR=$WAF_GIT_DIR/waflib" >> $PROJECT_ROOT/waf
+    echo "waf $@" >> $PROJECT_ROOT/waf
+    chmod +x $PROJECT_ROOT/waf
+fi
+
 
 for WS in $WSCRIPTS_LIST; do # FIXME May be use `find` ?
     if [[ ! -L ${PROJECT_ROOT}/${WS} ]]; then
 	echo Create symlink $WS
 	pushd $(dirname ${PROJECT_ROOT}/${WS})
-	ln -s $(realpath --relative-to=$(pwd) $WSCRIPTS_DIR/$WS)
+	# ln -s $(realpath --relative-to=$(pwd) $WSCRIPTS_DIR/$WS) # DELETEME
+	ln -sr $WSCRIPTS_DIR/$WS
 	popd
     fi
 done
