@@ -3,5 +3,6 @@
 # Здесь должна быть директория сборки
 .mypy_cache # должно переехать
 NaN/**/wscript
+!NaN/waf_build/wscripts/**/wscript
 NaN/waf_build/waf_git
 NaN/waf

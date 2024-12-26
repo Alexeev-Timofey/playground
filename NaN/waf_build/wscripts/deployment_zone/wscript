@@ -1,3 +1,6 @@
+def check_dependencies(ctx):
+    raise NotImplementedError
+
 def init_test_environment(ctx):
     raise NotImplementedError
 
