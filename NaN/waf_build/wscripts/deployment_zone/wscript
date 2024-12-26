@@ -1,0 +1,11 @@
+def init_test_environment(ctx):
+    raise NotImplementedError
+
+def start_test_environment(ctx):
+    raise NotImplementedError
+
+def shutdown_test_environment(ctx):
+    raise NotImplementedError
+
+def clean_test_environment(ctx):
+    raise NotImplementedError
