@@ -39,3 +39,5 @@ Seleniium?
 *** build environment suupport
 *** TODO run environment support
 **** TODO test environment
+** libvirt extra lib for waf
+Лааааадно. waf тоже признаётся непригодным

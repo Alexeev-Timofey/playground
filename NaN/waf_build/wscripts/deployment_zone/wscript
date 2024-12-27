@@ -1,5 +1,6 @@
 def check_dependencies(ctx):
-    raise NotImplementedError
+    # TODO Надо проверить более строго
+    ctx.cmd_and_log(["virsh", "-v"])
 
 def init_test_environment(ctx):
     raise NotImplementedError
