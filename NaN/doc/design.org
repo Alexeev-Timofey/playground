@@ -41,3 +41,4 @@ Seleniium?
 **** TODO test environment
 ** libvirt extra lib for waf
 Лааааадно. waf тоже признаётся непригодным
+** TODO Пробуем SCons
