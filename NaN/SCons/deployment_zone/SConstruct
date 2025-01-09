@@ -1,3 +1,7 @@
 print("Build test environment")
 
 # TODO Create builders and environments
+# TODO Setup NAN_LIBVIRT_POOL_PATH environment variable
+# TODO Run pool creating script
+
+

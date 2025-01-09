@@ -3,4 +3,4 @@
 # depends:
 # ubuntu: libvirt-clients
 
-pool-create-as NaN dir --target ${POOL_PATH_TODO}
+pool-create-as NaN dir --target ${NAN_LIBVIRT_POOL_PATH}
