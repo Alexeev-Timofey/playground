@@ -8,3 +8,5 @@ NaN/waf_build/waf_git
 NaN/waf
 NaN/**/meson.build
 !NaN/meson_build/**/meson.build
+SConstruct
+!NaN/SCons/**/SConstruct
