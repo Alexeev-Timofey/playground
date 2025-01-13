@@ -1,7 +1,4 @@
 print("Build test environment")
 
-# TODO Create builders and environments
-# TODO Setup NAN_LIBVIRT_POOL_PATH environment variable
-# TODO Run pool creating script
-
-
+libvirt_create_pool_script_name = "scriprs/libvirt_create_pool.sh"
+Command(Dir("libvirt_pool"), "", [libvirt_create_pool_script_name, "$TARGET"])

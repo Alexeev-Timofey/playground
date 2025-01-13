@@ -1,1 +1,3 @@
-print("Hello!")
+print("Main")
+
+SConscript('deployment_zone/SConstruct', variant_dir='targets/test')

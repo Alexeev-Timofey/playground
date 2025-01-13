@@ -10,3 +10,5 @@ NaN/**/meson.build
 !NaN/meson_build/**/meson.build
 SConstruct
 !NaN/SCons/**/SConstruct
+**/.sconsign.dblite
+NaN/targets
