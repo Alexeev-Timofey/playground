@@ -1,4 +1,3 @@
 print("Build test environment")
 
-env = Environment()
-env.Command(Dir("libvirt_pool"), "", ["$LIBVIRT_CREATE_POOL_SCRIPT_NAME", "$TARGET"])
+Command(Dir("libvirt_pool"), "#deployment_zone/scripts/libvirt_create_pool.sh", ["$SOURCE", "$TARGET"])
