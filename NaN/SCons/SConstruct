@@ -1,3 +1,6 @@
 print("Main")
 
-SConscript('deployment_zone/SConstruct', variant_dir='targets/test')
+libvirt_scripts_env = Environment(
+    LIBVIRT_CREATE_POOL_SCRIPT_NAME = Glob("$PWD/deployment_zone/scripts/libvirt_create_pool.sh")
+)
+SConscript('deployment_zone/SConstruct', variant_dir='targets/test', export=libvirt_scripts_env)

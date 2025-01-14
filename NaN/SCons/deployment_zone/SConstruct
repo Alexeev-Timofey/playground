@@ -1,4 +1,4 @@
 print("Build test environment")
 
-libvirt_create_pool_script_name = "scriprs/libvirt_create_pool.sh"
-Command(Dir("libvirt_pool"), "", [libvirt_create_pool_script_name, "$TARGET"])
+env = Environment()
+env.Command(Dir("libvirt_pool"), "", ["$LIBVIRT_CREATE_POOL_SCRIPT_NAME", "$TARGET"])
