@@ -1,5 +1,3 @@
 print("Main")
 
 Clean(Glob("*"), "targets")
-
-SConscript('deployment_zone/SConstruct', variant_dir='targets/test')
