@@ -32,6 +32,40 @@ Notes-And-News
 Надо поиграться, как будет с чем эксперемкентироовать.
 *** Тестирование
 Seleniium?
+* Над потрогать
+** Backend
+*** Django
+*** Flask
+*** Что-нибудь на Rust
+*** Go
+** Frontend
+*** React
+** Databases
+*** PostgressSQL
+*** MonpgoDB
+*** Redis
+** FastAPI
+** REST/RESTful API
+** RabbitMQ
+** Kafka
+** Containerisation/Virtualisetion
+*** Docker/Kubernates
+*** LXC/LXD
+*** Qemu
+*** Libvirt
+**** LXC/LXD
+**** Qemu
+** Testing
+*** Selenium
+*** Robotframework
+*** PyTest
+** Project managment conceptions
+*** DDD
+*** TDD
+*** SOLD
+*** KISS
+*** DRY
+*** Scrum
 * Система сборки
 ** Features
 *** dev environment support
@@ -39,6 +73,3 @@ Seleniium?
 *** build environment suupport
 *** TODO run environment support
 **** TODO test environment
-** libvirt extra lib for waf
-Лааааадно. waf тоже признаётся непригодным
-** TODO Пробуем SCons
