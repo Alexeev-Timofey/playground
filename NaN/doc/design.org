@@ -40,6 +40,8 @@ Seleniium?
 *** Go
 ** Frontend
 *** React
+*** Vue.js
+*** Node.js
 ** Databases
 *** PostgressSQL
 *** MonpgoDB
