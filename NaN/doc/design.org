@@ -88,8 +88,9 @@ Seleniium?
 *** Scrum
 * Система сборки
 ** Features
-*** dev environment support
-**** emacs
+*** TODO dev environment support
+**** TODO emacs
 *** build environment suupport
 *** TODO run environment support
 **** TODO test environment
+*** TODO setup pipenv

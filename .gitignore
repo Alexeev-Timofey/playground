@@ -1,5 +1,8 @@
 *~
 *.pyc
+.venv
+.env
+.pipenv
 # Здесь должна быть директория сборки
 .mypy_cache # должно переехать
 SConstruct
