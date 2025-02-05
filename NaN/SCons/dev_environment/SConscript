@@ -1,0 +1,27 @@
+import json
+import SCons
+
+class DictNode(dict, SCons.Node):
+    pass
+
+def create_pipenv(target, source, env):
+    dev_env_dict = {}
+    for s in source:
+        dev_env_dict |= json.load(str(s))
+    e = env.Copy(**dev_env_dict)
+    e.Execute("pipenv update")
+
+def create_dir_locals(target, source, env):
+    raise NotImplementedError
+
+dev_env_src = File("dev_env.json")
+pipfile_src = File("Pipfile")
+venv_tgt = Dir(".venv")
+dir_locals_tgt = File("#NaN/.dir_locals.el")
+    
+dev_pipenv = Command(venv_tgt, [dev_env_src, pipfile_src], create_pipenv)
+dir_locals = Command(dir_locals_tgt, dev_env_src, create_dir_locals)
+    
+NoClean(dev_pipenv)
+NoClean(dir_locals)
+Alias("dev-config", [dev_pipenv, dir_locals])

@@ -1,0 +1,21 @@
+print("Test")
+
+# SCons playground
+# Play with VariandDir
+if False:
+    def test_action(target, source, env):
+        for i, t in enumerate(target):
+            print(f"target {i}:", str(t))
+        for i, s in enumerate(source):
+            print(f"source {i}:", str(s))
+        env.Dump()
+        Execute("pwd")
+        env.Execute("pwd")
+        env.Execute(Move(str(target[0]), str(source[0])))
+
+    test_src = File("hello_test.sh")
+    test_tgt = File("test")
+
+    test_node = Command(test_tgt, test_src, test_action)
+
+# TODO project tests

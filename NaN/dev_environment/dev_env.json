@@ -1,0 +1,4 @@
+{
+    "PIPENV_PIPFILE": "./Pipfile",
+    "PIPENV_VENV_IN_PROJECT": "True",
+}

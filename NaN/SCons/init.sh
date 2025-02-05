@@ -23,11 +23,12 @@ SCONS_BUILD_DIR=$PROJECT_ROOT/SCons
 
 if (( $CLEAN )); then
     find $PROJECT_ROOT -type l -name SConstruct -delete
+    find $PROJECT_ROOT -type l -name SConscript -delete
     exit
 fi
 
 pushd $SCONS_BUILD_DIR > /dev/null
-for SC in $(find . -name SConstruct); do
+for SC in $(find . -name SConstruct; find . -name SConscript); do
     pushd $PROJECT_ROOT/$(dirname $SC) > /dev/null
     ln -sr $SCONS_BUILD_DIR/$SC
     popd > /dev/null

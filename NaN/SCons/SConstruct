@@ -1,29 +1,5 @@
 print("Main")
 
-Clean(Glob("*"), "targets")
+# Clean(Glob("*"), "targets")
 
-# Настройка dev-environment
-dev_env = Dir("dev_env")
-dev_env_pipenv = NotImplemented
-
-dev_shell_environment_variables = {
-    "PIPENV_PIPFILE": ".pipenv/Pipfile",
-    "PIPENV_VENV_IN_PROJECT": "True",
-}
-
-def create_dev_env(env_dict):
-    raise NotImplementedError
-
-def create_pipenv(env):
-    raise NotImplementedError
-
-def create_dir_locals(env):
-    raise NotImplementedError
-
-def setup_dev_environment(target, source, env):
-    create_pipenv(env)
-    create_dir_locals(env)
-    
-NoClean(dev_env)
-Alias("dev-config", dev_env)
-
+SConscript("tests/SConscript", variant_dir="target/tests/")
