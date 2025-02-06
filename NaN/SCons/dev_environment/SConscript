@@ -1,8 +1,18 @@
 import json
 import SCons
 
-class DictNode(dict, SCons.Node):
-    pass
+class DevEnvNode(SCons.Node.Node):
+    def __init__(self, dev_env_node):
+        super().__init__()
+        self.add_dependency(dev_env_node)
+        self.filepath: str = str(dev_env_node)
+        self.dev_env: dict = json.load(self.filepath)
+
+    def __str__(self) -> str:
+        return filepath
+
+    def get_dev_env(self) -> dict:
+        return self.dev_env
 
 def create_pipenv(target, source, env):
     dev_env_dict = {}
@@ -14,7 +24,7 @@ def create_pipenv(target, source, env):
 def create_dir_locals(target, source, env):
     raise NotImplementedError
 
-dev_env_src = File("dev_env.json")
+dev_env_src = DevEnvNode(File("dev_env.json"))
 pipfile_src = File("Pipfile")
 venv_tgt = Dir(".venv")
 dir_locals_tgt = File("#NaN/.dir_locals.el")
